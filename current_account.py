@@ -28,7 +28,7 @@ class CurrentAccount(BankAccount):
             return "Invalid deposit amount"
         self.balance += amount
         return self.balance
-
+       
     def withdraw(self, amount):
         """
         Method to take in cash amounts and decrease this from the current
