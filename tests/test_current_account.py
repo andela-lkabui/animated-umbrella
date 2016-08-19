@@ -38,14 +38,14 @@ class TestCurrentAccount(unittest.TestCase):
         """
         Tests that CurrentAccount can deposit valid cash amounts.
         """
-        balance = self.ca.deposit(1500.63)
-        self.assertEquals(balance, 1500.63)
+        balance = self.ca.deposit(1500)
+        self.assertEquals(balance, 1500)
 
     def test_current_account_cannot_withdraw_negative_amounts(self):
         """
         Tests that CurrentAccount cannot withdraw negative cash amounts.
         """
-        message = self.ca.withdraw(-1500.63)
+        message = self.ca.withdraw(-1500)
         self.assertEquals(message, "Invalid withdraw amount")
 
     def test_current_account_cannot_withdraw_more_than_current_balance(self):
@@ -53,7 +53,19 @@ class TestCurrentAccount(unittest.TestCase):
         Tests that CurrentAccount cannot withdraw more than current balance.
         (Current balance for newly created CurrentAccount is 0)
         """
-        message = self.ca.withdraw(1500.63)
+        message = self.ca.withdraw(1500)
         self.assertEquals(
             message,
-            "Cannot withdraw beyond the minimum account balance")    
+            "Cannot withdraw beyond the minimum account balance")
+
+    def test_current_account_can_withdraw_valid_cash_amounts(self):
+        """
+        Tests that CurrentAccount can withdraw valid cash amounts.
+        (Current balance for newly created CurrentAccount is 0)
+        """
+        self.ca.deposit(23001)
+        self.ca.withdraw(437)
+        self.assertEquals(
+            self.ca.balance,
+            22564,
+            msg="Incorrect balance after withdrawal")

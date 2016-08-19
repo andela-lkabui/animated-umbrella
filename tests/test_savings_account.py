@@ -38,14 +38,15 @@ class TestSavingsAccount(unittest.TestCase):
         """
         Tests that CurrentAccount can deposit valid cash amounts.
         """
-        balance = self.sa.deposit(1500.63)
-        self.assertEquals(balance, (1500.63 + 500))
+        init_balance = self.sa.balance
+        balance = self.sa.deposit(1500)
+        self.assertEquals(balance, (1500 + init_balance))
 
     def test_savings_account_cannot_withdraw_negative_amounts(self):
         """
         Tests that SavingsAccount cannot withdraw negative cash amounts.
         """
-        message = self.sa.withdraw(-1500.63)
+        message = self.sa.withdraw(-1500)
         self.assertEquals(message, "Invalid withdraw amount")
 
     def test_savings_account_cannot_withdraw_more_than_current_balance(self):
@@ -53,7 +54,7 @@ class TestSavingsAccount(unittest.TestCase):
         Tests that SavingsAccount cannot withdraw more than current balance.
         (Current balance for newly created SavingsAccount is 500)
         """
-        message = self.sa.withdraw(1500.63)
+        message = self.sa.withdraw(1500)
         self.assertEquals(
             message,
             "Cannot withdraw beyond the minimum account balance")
@@ -63,7 +64,18 @@ class TestSavingsAccount(unittest.TestCase):
         Tests that SavingsAccount cannot withdraw more than minimum balance.
         (Minimum balance for newly created SavingsAccount is 500)
         """
-        message = self.sa.withdraw(500.01)
+        message = self.sa.withdraw(501)
         self.assertEquals(
             message,
-            "Cannot withdraw beyond the minimum account balance")    
+            "Cannot withdraw beyond the minimum account balance")
+
+    def test_savings_account_can_withdraw_valid_cash_amounts(self):
+        """
+        Tests that SavingsAccount can withdraw valid cash amounts.
+        """
+        # deposit some money first
+        self.sa.deposit(2300)
+        # now withdraw
+        self.sa.withdraw(543)
+        self.assertEquals(
+            2257, self.sa.balance, msg="Incorrect balance after withdrawal")
