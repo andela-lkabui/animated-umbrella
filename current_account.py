@@ -25,9 +25,9 @@ class CurrentAccount(BankAccount):
         balance.
         """
         if amount < 0:
-            return "Invalid amount"
-        else:
-            self.balance += amount
+            return "Invalid deposit amount"
+        self.balance += amount
+        return self.balance
 
     def withdraw(self, amount):
         """
@@ -35,8 +35,9 @@ class CurrentAccount(BankAccount):
         balance.
         """
         if amount < 0:
-            return "Invalid amount"
+            return "Invalid withdraw amount"
         elif (self.balance - amount) < 0:
-            return "Cannot withdraw beyond the minimum balance"
+            return "Cannot withdraw beyond the minimum account balance"
         else:
             self.balance -= amount
+            return self.balance
