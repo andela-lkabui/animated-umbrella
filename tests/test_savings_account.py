@@ -32,13 +32,13 @@ class TestSavingsAccount(unittest.TestCase):
         message = self.sa.withdraw(-1500)
         self.assertEquals(message, 'Invalid withdraw amount', msg='Negative amount cannot be withdrawn')
 
+    def test_savings_account_cannot_withdraw_more_than_minimum_balance(self):
+        message = self.sa.withdraw(300)
+        self.assertEquals(message, 'Cannot withdraw beyond the minimum account balance', msg='Cannot withdraw beyond minimum balance')
+
     def test_savings_account_cannot_withdraw_more_than_current_balance(self):
         message = self.sa.withdraw(1500)
-        self.assertEquals(message, 'Cannot withdraw beyond the minimum account balance', msg='No overdrafts')
-
-    def test_savings_account_cannot_withdraw_more_than_minimum_balance(self):
-        message = self.sa.withdraw(501)
-        self.assertEquals(message, 'Cannot withdraw beyond the minimum account balance')
+        self.assertEquals(message, 'Cannot withdraw beyond the current account balance', msg='No overdrafts')
 
     def test_savings_account_can_withdraw_valid_amounts_successfully(self):
         self.sa.deposit(2300)
