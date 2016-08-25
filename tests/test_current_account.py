@@ -13,6 +13,9 @@ class TestCurrentAccount(unittest.TestCase):
     def tearDown(self):
         del self.ca
 
+    def test_current_account_has_initial_balance_of_zero(self):
+        self.assertEquals(self.ca.balance, 0, msg="CurrentAccount should have initial balance of zero")
+
     def test_current_account_cannot_deposit_negative_amounts(self):
         message = self.ca.deposit(-500)
         self.assertEquals(message, 'Invalid deposit amount', msg='Negative amount cannot be deposited')
