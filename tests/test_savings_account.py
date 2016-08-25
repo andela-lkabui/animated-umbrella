@@ -12,6 +12,9 @@ class TestSavingsAccount(unittest.TestCase):
     
     def tearDown(self):
         del self.sa
+
+    def test_current_account_is_instance_of_bank_account(self):
+        self.assertTrue(isinstance(self.sa, BankAccount), msg='SavingsAccount is not a subclass of BankAccount')
   
     def test_savings_account_cannot_deposit_negative_amounts(self):
         message = self.sa.deposit(-500)
