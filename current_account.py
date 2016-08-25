@@ -37,7 +37,7 @@ class CurrentAccount(BankAccount):
         if amount < 0:
             return "Invalid withdraw amount"
         elif (self.balance - amount) < 0:
-            return "Cannot withdraw beyond the minimum account balance"
+            return "Cannot withdraw beyond the current account balance"
         else:
             self.balance -= amount
             return self.balance
